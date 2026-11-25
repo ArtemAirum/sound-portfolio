@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Артём Емельянов (emeart) — Game Sound Designer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            canvas: '#0B0B0C',
+            surface: '#131315',
+            surfaceHover: '#1A1A1D',
+            borderSubtle: '#222226',
+            accent: '#FF4D24',
+            accentHover: '#FF623E',
+          },
+        },
+      },
+    };
+  </script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="antialiased selection:bg-accent/25 selection:text-white">
+
+  <!-- ==================== 1. HEADER ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-canvas/85 backdrop-blur-md border-b border-borderSubtle">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-4">
+      <!-- Логотип / Имя -->
+      <a href="#" class="flex items-center gap-2.5 group">
+        <span class="w-2 h-2 rounded-full bg-accent"></span>
+        <span class="text-sm font-semibold tracking-tight text-white">emeart</span>
+        <span class="hidden sm:inline text-xs text-zinc-500 font-normal">/ Артём Емельянов</span>
+      </a>
+
+      <!-- Меню: строгий порядок — Обо мне, Портфолио, Контакты -->
+      <nav class="hidden md:flex items-center gap-8 text-sm text-zinc-400">
+        <a href="#about" class="hover:text-white transition-colors">Обо мне</a>
+        <a href="#portfolio" class="hover:text-white transition-colors">Портфолио</a>
+        <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
+      </nav>
+
+      <!-- Пилюля-кнопка быстрого запуска шоурила (в стиле референсов) -->
+      <div class="flex items-center gap-2.5">
+        <button
+          onclick="openShowreelModal()"
+          class="inline-flex items-center gap-2.5 pl-4 pr-1.5 py-1.5 rounded-full bg-white text-canvas hover:bg-zinc-200 text-xs font-medium transition-colors cursor-pointer"
+        >
+          <span>Шоурил</span>
+          <span class="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center">
+            <svg class="w-3 h-3 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Мобильная навигация (строгий порядок) -->
+    <div class="flex md:hidden items-center justify-center gap-6 py-2.5 border-t border-borderSubtle/70 text-xs text-zinc-400 bg-canvas">
+      <a href="#about" class="hover:text-white transition-colors">Обо мне</a>
+      <a href="#portfolio" class="hover:text-white transition-colors">Портфолио</a>
+      <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
+    </div>
+  </header>
+
+  <!-- ==================== 2. HERO SECTION (ПЕРВЫЙ ЭКРАН) ==================== -->
+  <section class="relative min-h-[78vh] flex items-center border-b border-borderSubtle overflow-hidden">
+    <!-- Фоновый слой шоурила (автоматически заполняется из SHOWREEL_CONFIG.bgVideoUrl) -->
+    <div id="heroBgMedia" class="absolute inset-0 z-0">
+      <canvas id="heroWaveCanvas" class="w-full h-full block opacity-60"></canvas>
+      <!-- Лёгкое затемнение слева и снизу, чтобы текст хорошо читался, а видео оставалось ярким -->
+      <div class="absolute inset-0 bg-gradient-to-r from-canvas/85 via-canvas/40 to-transparent pointer-events-none"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-canvas/25 pointer-events-none"></div>
+    </div>
+
+    <!-- Контент первого экрана -->
+    <div class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 py-20 sm:py-28 w-full">
+      <div class="max-w-3xl">
+        <!-- Editorial-лейбл с оранжевым маркером (как на референсах) -->
+        <div class="inline-flex items-center gap-2.5 mb-6">
+          <span class="w-2 h-2 rounded-sm bg-accent"></span>
+          <span class="text-xs sm:text-sm font-medium text-zinc-400 tracking-wide">
+            Game Sound Designer &amp; Audio Implementer
+          </span>
+        </div>
+
+        <!-- Крупная гротескная типографика -->
+        <h1 class="text-4xl sm:text-6xl lg:text-[64px] font-semibold tracking-[-0.03em] text-white leading-[1.06] mb-6">
+          Звук для игр и&nbsp;<span class="text-zinc-400">интерактивных миров.</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-zinc-300 leading-relaxed max-w-xl mb-10 font-normal">
+          Проектирую выразительный линейный саунд-дизайн и интерактивные аудиосистемы: от синтеза и фоли в REAPER до интеграции в Wwise, FMOD и Unity.
+        </p>
+
+        <!-- Кнопка шоурила + текстовый якорь вниз (без вида выпадающей кнопки) -->
+        <div class="flex flex-wrap items-center gap-6 sm:gap-8">
+          <!-- Пилюльная кнопка с круглой стрелкой/иконкой в стиле референсов -->
+          <button
+            onclick="openShowreelModal()"
+            class="group inline-flex items-center gap-3.5 pl-6 pr-2 py-2 rounded-full bg-accent hover:bg-accentHover text-white font-medium text-sm sm:text-base transition-all cursor-pointer"
+          >
+            <span>Смотреть шоурил</span>
+            <span class="w-9 h-9 rounded-full bg-white text-canvas flex items-center justify-center transition-transform group-hover:scale-105">
+              <svg class="w-3.5 h-3.5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </button>
+
+          <!-- Текстовый якорь-ссылка вниз -->
+          <a
+            href="#portfolio"
+            class="group inline-flex items-center gap-2 text-sm sm:text-base text-zinc-300 hover:text-white transition-colors py-2 border-b border-transparent hover:border-zinc-500"
+          >
+            <span>Смотреть проекты</span>
+            <span class="text-accent transition-transform duration-200 group-hover:translate-y-0.5" aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. ABOUT ME SECTION (ВТОРОЙ БЛОК С ФОТО И PDF) ==================== -->
+  <section id="about" class="py-20 sm:py-28 border-b border-borderSubtle">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        
+        <!-- Левая колонка: Чёрно-белая фотография автора -->
+        <div class="lg:col-span-5">
+          <div class="relative rounded-2xl overflow-hidden bg-surface border border-borderSubtle aspect-[3/4] max-w-sm mx-auto lg:max-w-none">
+            <!-- 
+              ПОДСКАЗКА ПО ФОТО:
+              Сохраните прикреплённое фото рядом с index.html как ./assets/photo.jpg 
+              (ниже указан приоритетный локальный путь ./assets/photo.jpg с резервным именем Lukyannov.ru-202 1.jpg)
+            -->
+            <img
+              id="authorPhoto"
+              src="./assets/photo.jpg"
+              onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback='1';this.src='./Lukyannov.ru-202 1.jpg';}else{this.src='https://placehold.co/600x800/131315/71717A?text=Artem+Emelyanov';}"
+              alt="Артём Емельянов — Game Sound Designer"
+              class="w-full h-full object-cover object-center grayscale contrast-110"
+            />
+          </div>
+        </div>
+
+        <!-- Правая колонка: Текст «Обо мне», стек и кнопка скачивания PDF -->
+        <div class="lg:col-span-7 space-y-7">
+          <div>
+            <div class="inline-flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-accent"></span>
+              <span class="text-xs font-medium uppercase tracking-wider text-zinc-400">Обо мне</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-semibold tracking-[-0.02em] text-white leading-tight">
+              Артём Емельянов — саунд-дизайнер с опытом в визуальном арт-дирекшне и электронной музыке.
+            </h2>
+          </div>
+
+          <p class="text-zinc-300 text-base sm:text-lg leading-relaxed">
+            Мой бэкграунд помогает считывать художественную атмосферу кадра и переводить её в точный, тактильный звук, который усиливает геймплей и сохраняет чистоту микса. Веду полный цикл работы над игровым аудио: от полевых записей и синтеза до настройки логики, RTPC, пространственной акустики и интеграции в движок.
+          </p>
+
+          <!-- Инструменты (чистые плашки без лишнего визуального шума) -->
+          <div class="flex flex-wrap gap-2 pt-1">
+            <span class="px-3 py-1.5 rounded-lg bg-surface border border-borderSubtle text-xs text-zinc-300">REAPER</span>
+            <span class="px-3 py-1.5 rounded-lg bg-surface border border-borderSubtle text-xs text-zinc-300">Audiokinetic Wwise</span>
+            <span class="px-3 py-1.5 rounded-lg bg-surface border border-borderSubtle text-xs text-zinc-300">FMOD Studio</span>
+            <span class="px-3 py-1.5 rounded-lg bg-surface border border-borderSubtle text-xs text-zinc-300">Unity / C# Audio</span>
+            <span class="px-3 py-1.5 rounded-lg bg-surface border border-borderSubtle text-xs text-zinc-300">Synthesis &amp; Foley</span>
+            <span class="px-3 py-1.5 rounded-lg bg-surface border border-borderSubtle text-xs text-zinc-300">Spatial Audio</span>
+          </div>
+
+          <!-- Действия: Скачать PDF-портфолио + Ссылка на Telegram -->
+          <div class="pt-3 flex flex-wrap items-center gap-4">
+            <!-- Кнопка скачивания портфолио в PDF (положите файл по пути ./assets/Artem_Emelyanov_Portfolio.pdf) -->
+            <a
+              id="downloadPdfLink"
+              href="./assets/Artem_Emelyanov_Portfolio.pdf"
+              download="Artem_Emelyanov_Sound_Design_Portfolio.pdf"
+              onclick="handlePdfDownload(event)"
+              class="group inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full bg-white text-canvas hover:bg-zinc-200 font-medium text-sm transition-colors"
+            >
+              <span>Скачать портфолио (PDF)</span>
+              <span class="w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center transition-transform group-hover:translate-y-0.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+                </svg>
+              </span>
+            </a>
+
+            <a
+              href="https://t.me/emeart"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface hover:bg-surfaceHover border border-borderSubtle text-sm text-zinc-200 transition-colors"
+            >
+              <span>Написать в Telegram</span>
+              <span class="text-zinc-500">@emeart</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. PORTFOLIO SECTION (ВИДЕО С ТЕГАМИ) ==================== -->
+  <section id="portfolio" class="py-20 sm:py-28 border-b border-borderSubtle">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <!-- Заголовок секции -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <div>
+          <div class="inline-flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-accent"></span>
+            <span class="text-xs font-medium uppercase tracking-wider text-zinc-400">Избранные работы</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-[-0.02em] text-white">Портфолио</h2>
+        </div>
+        <p class="text-sm text-zinc-400 max-w-md">
+          Видео-кейсы с фильтрацией по статусу (оригинал или редизайн), аудиодвижку и игровому движку.
+        </p>
+      </div>
+
+      <!-- Панель фильтров -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-surface border border-borderSubtle mb-10 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-borderSubtle pb-3.5">
+          <div class="flex items-center gap-2 text-xs text-zinc-400">
+            <span class="font-medium text-zinc-200">Фильтр проектов</span>
+            <span id="projectCountBadge" class="px-2 py-0.5 rounded-full bg-canvas text-zinc-300 border border-borderSubtle font-mono text-[11px]">6</span>
+          </div>
+          <button
+            id="resetFiltersBtn"
+            onclick="resetFilters()"
+            class="hidden text-xs text-accent hover:text-accentHover transition-colors cursor-pointer"
+          >
+            Сбросить фильтры
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- Фильтр 1: Статус (Редизайн / Оригинал) -->
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-zinc-500 mb-2">Тип работы</label>
+            <div class="flex flex-wrap gap-1.5">
+              <button data-group="type" data-value="ALL" class="filter-chip">Все</button>
+              <button data-group="type" data-value="Оригинал" class="filter-chip">Оригинал</button>
+              <button data-group="type" data-value="Редизайн" class="filter-chip">Редизайн</button>
+            </div>
+          </div>
+
+          <!-- Фильтр 2: Жанр игры (генерируется автоматически из PROJECTS) -->
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-zinc-500 mb-2">Жанр игры</label>
+            <div id="genreFilterContainer" class="flex flex-wrap gap-1.5">
+              <button data-group="genre" data-value="ALL" class="filter-chip">Все</button>
+            </div>
+          </div>
+
+          <!-- Фильтр 3: Аудио движок -->
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-zinc-500 mb-2">Аудио движок</label>
+            <div class="flex flex-wrap gap-1.5">
+              <button data-group="audioEngine" data-value="ALL" class="filter-chip">Все</button>
+              <button data-group="audioEngine" data-value="Wwise" class="filter-chip">Wwise</button>
+              <button data-group="audioEngine" data-value="FMOD" class="filter-chip">FMOD</button>
+              <button data-group="audioEngine" data-value="Linear (REAPER)" class="filter-chip">Linear (REAPER)</button>
+            </div>
+          </div>
+
+          <!-- Фильтр 4: Игровой движок -->
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-zinc-500 mb-2">Игровой движок / Среда</label>
+            <div class="flex flex-wrap gap-1.5">
+              <button data-group="gameEngine" data-value="ALL" class="filter-chip">Все</button>
+              <button data-group="gameEngine" data-value="Unity" class="filter-chip">Unity</button>
+              <button data-group="gameEngine" data-value="QuakeSpasm" class="filter-chip">QuakeSpasm</button>
+              <button data-group="gameEngine" data-value="VR / Video" class="filter-chip">VR / Video</button>
+              <button data-group="gameEngine" data-value="Video" class="filter-chip">Video</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Сетка видео-карточек -->
+      <div id="portfolioGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Карточки рендерятся из массива PROJECTS -->
+      </div>
+
+      <!-- Состояние пустого результата -->
+      <div id="emptyState" class="hidden py-16 text-center rounded-2xl bg-surface border border-borderSubtle">
+        <p class="text-sm text-zinc-400 mb-4">По выбранным тегам проектов не найдено.</p>
+        <button onclick="resetFilters()" class="px-4 py-2 rounded-full bg-white text-canvas text-xs font-medium cursor-pointer">
+          Показать все работы
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. CONTACTS & FOOTER ==================== -->
+  <footer id="contacts" class="py-20 sm:py-24">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10 pb-14 border-b border-borderSubtle">
+        <div class="max-w-xl">
+          <div class="inline-flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-accent"></span>
+            <span class="text-xs font-medium uppercase tracking-wider text-zinc-400">Контакты</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-[-0.02em] text-white leading-tight">
+            Открыт к новым проектам, тестовым заданиям и сотрудничеству.
+          </h2>
+        </div>
+
+        <!-- Ссылки: Telegram @emeart, Канал @emeart_sound, LinkedIn, Email, PDF -->
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Личный Telegram -->
+          <a
+            href="https://t.me/emeart"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-surface hover:bg-surfaceHover border border-borderSubtle hover:border-zinc-600 text-sm text-zinc-100 transition-colors"
+          >
+            <svg class="w-4 h-4 text-accent fill-current" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            <span>@emeart</span>
+          </a>
+
+          <!-- Telegram-канал -->
+          <a
+            href="https://t.me/emeart_sound"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface hover:bg-surfaceHover border border-borderSubtle hover:border-zinc-600 text-sm text-zinc-200 transition-colors"
+          >
+            <span>Канал @emeart_sound</span>
+            <span class="text-zinc-500">↗</span>
+          </a>
+
+          <!-- LinkedIn -->
+          <a
+            href="https://www.linkedin.com/in/artem-emelyanov-136825148/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface hover:bg-surfaceHover border border-borderSubtle hover:border-zinc-600 text-sm text-zinc-200 transition-colors"
+          >
+            <svg class="w-4 h-4 text-zinc-400 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+
+          <!-- Скачать PDF в футере -->
+          <a
+            href="./assets/Artem_Emelyanov_Portfolio.pdf"
+            download="Artem_Emelyanov_Sound_Design_Portfolio.pdf"
+            onclick="handlePdfDownload(event)"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface hover:bg-surfaceHover border border-borderSubtle hover:border-zinc-600 text-sm text-zinc-200 transition-colors"
+          >
+            <span>PDF-портфолио</span>
+            <span class="text-accent">↓</span>
+          </a>
+
+          <!-- Скопировать Email -->
+          <button
+            onclick="copyEmail()"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface hover:bg-surfaceHover border border-borderSubtle hover:border-zinc-600 text-sm text-zinc-300 transition-colors cursor-pointer"
+          >
+            <span id="emailBtnText">artem.sound@example.com</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-zinc-500">
+        <span>© 2026 Артём Емельянов (emeart)</span>
+        <span>Game Sound Design &amp; Audio Implementation</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== 6. MODAL VIDEO PLAYER ==================== -->
+  <div id="videoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="relative w-full max-w-4xl rounded-2xl bg-surface border border-borderSubtle shadow-2xl overflow-hidden">
+      <!-- Шапка модального окна -->
+      <div class="flex items-center justify-between px-5 py-4 border-b border-borderSubtle bg-canvas">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="w-2 h-2 rounded-full bg-accent shrink-0"></span>
+          <h3 id="modalTitle" class="text-sm sm:text-base font-medium text-white truncate">Название проекта</h3>
+        </div>
+        <button
+          onclick="closeVideoModal()"
+          aria-label="Закрыть окно"
+          class="w-8 h-8 rounded-full bg-surface hover:bg-surfaceHover border border-borderSubtle text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Видео 16:9 -->
+      <div id="modalPlayerContainer" class="relative w-full aspect-video bg-black flex items-center justify-center"></div>
+
+      <!-- Описание и теги -->
+      <div class="p-5 sm:p-6 bg-surface space-y-4">
+        <div id="modalTags" class="flex flex-wrap gap-2"></div>
+        <p id="modalDescription" class="text-sm text-zinc-300 leading-relaxed"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast-уведомление (вместо alert) -->
+  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2.5 px-4 py-3 rounded-full bg-surface border border-borderSubtle text-xs text-zinc-100 shadow-2xl">
+    <span class="w-2 h-2 rounded-full bg-accent"></span>
+    <span id="toastText">Готово</span>
+  </div>
+
+  <!-- ==================== JAVASCRIPT: КОНФИГ И ЛОГИКА ==================== -->
+<script src="content.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
