@@ -1,4 +1,4 @@
-   // ==================== ФИЛЬТРАЦИЯ ПРОЕКТОВ ====================
+// ==================== ФИЛЬТРАЦИЯ И ОТРИСОВКА ПОРТФОЛИО ====================
     const chipBaseClasses = "px-3 py-1.5 rounded-full text-xs border transition-colors cursor-pointer select-none";
     const chipInactiveClasses = "bg-canvas border-borderSubtle text-zinc-400 hover:text-white hover:border-zinc-600";
     const chipActiveClasses = "bg-white border-white text-canvas font-medium";
@@ -10,15 +10,23 @@
       gameEngine: "ALL"
     };
 
-    // Автоматически наполняем кнопки фильтра «Жанр игры» уникальными жанрами из PROJECTS
+    function escapeHtml(value = "") {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
     function buildGenreFilterChips() {
       const container = document.getElementById("genreFilterContainer");
       if (!container) return;
       const uniqueGenres = [...new Set(PROJECTS.map((p) => p.genre).filter(Boolean))];
       container.innerHTML = [
-        `<button data-group="genre" data-value="ALL" class="filter-chip">Все</button>`,
+        `<button type="button" data-group="genre" data-value="ALL" class="filter-chip">Все</button>`,
         ...uniqueGenres.map(
-          (genre) => `<button data-group="genre" data-value="${genre}" class="filter-chip">${genre}</button>`
+          (genre) => `<button type="button" data-group="genre" data-value="${escapeHtml(genre)}" class="filter-chip">${escapeHtml(genre)}</button>`
         )
       ].join("");
     }
@@ -28,6 +36,7 @@
         btn.addEventListener("click", () => {
           const group = btn.dataset.group;
           const val = btn.dataset.value;
+          if (!group || !(group in activeFilters)) return;
           activeFilters[group] = val;
           syncFilterChipsUI();
           renderPortfolio();
@@ -50,7 +59,6 @@
       }
     }
 
-    // Минималистичная волновая форма для превью карточки (если не задана картинка posterUrl)
     function buildWaveformSvg(seed = 1.5) {
       const bars = 38;
       let rects = "";
@@ -73,6 +81,7 @@
       const grid = document.getElementById("portfolioGrid");
       const emptyState = document.getElementById("emptyState");
       const countBadge = document.getElementById("projectCountBadge");
+      if (!grid || !emptyState || !countBadge) return;
 
       const filtered = PROJECTS.filter((item) => {
         const matchType = activeFilters.type === "ALL" || item.type === activeFilters.type;
@@ -99,56 +108,51 @@
           : "border-emerald-500/30 text-emerald-300 bg-emerald-500/10";
 
         const mediaPreview = project.posterUrl
-          ? `<img src="${project.posterUrl}" alt="${project.title}" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" />`
+          ? `<img src="${escapeHtml(project.posterUrl)}" alt="${escapeHtml(project.title)}" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" />`
           : `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#161619] to-[#0D0D0F]">${buildWaveformSvg(project.waveSeed)}</div>`;
 
         return `
           <article
-            onclick="openProjectModal('${project.id}')"
+            onclick="openProjectModal('${escapeHtml(project.id)}')"
             class="group rounded-2xl bg-surface hover:bg-surfaceHover border border-borderSubtle hover:border-zinc-700 overflow-hidden flex flex-col transition-all duration-300 cursor-pointer"
           >
-            <!-- Превью 16:9 -->
             <div class="relative aspect-video bg-canvas border-b border-borderSubtle overflow-hidden">
               ${mediaPreview}
 
-              <!-- Кнопка Play по центру -->
               <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/35 transition-colors">
                 <div class="w-12 h-12 rounded-full bg-white/95 text-canvas flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-white">
-                  <svg class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  <svg class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
                 </div>
               </div>
 
-              <!-- Длительность -->
               <span class="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-sm font-mono text-[11px] text-zinc-200 border border-white/10">
-                ${project.duration}
+                ${escapeHtml(project.duration)}
               </span>
             </div>
 
-            <!-- Контент карточки -->
             <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
               <div>
-                <!-- Теги: Тип (Редизайн/Оригинал), Жанр, Аудио движок, Игровой движок -->
                 <div class="flex flex-wrap gap-1.5 mb-3.5">
                   <span class="px-2.5 py-0.5 rounded-full border text-[11px] font-medium ${typeTagClass}">
-                    ${project.type}
+                    ${escapeHtml(project.type)}
                   </span>
                   <span class="px-2.5 py-0.5 rounded-full bg-canvas border border-borderSubtle text-[11px] text-zinc-300">
-                    ${project.genre}
+                    ${escapeHtml(project.genre)}
                   </span>
                   <span class="px-2.5 py-0.5 rounded-full bg-canvas border border-borderSubtle font-mono text-[11px] text-zinc-300">
-                    ${project.audioEngine}
+                    ${escapeHtml(project.audioEngine)}
                   </span>
                   <span class="px-2.5 py-0.5 rounded-full bg-canvas border border-borderSubtle font-mono text-[11px] text-zinc-400">
-                    ${project.gameEngine}
+                    ${escapeHtml(project.gameEngine)}
                   </span>
                 </div>
 
                 <h3 class="text-base sm:text-lg font-semibold text-white group-hover:text-accent transition-colors leading-snug mb-2">
-                  ${project.title}
+                  ${escapeHtml(project.title)}
                 </h3>
 
                 <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                  ${project.summary}
+                  ${escapeHtml(project.summary)}
                 </p>
               </div>
 
@@ -171,6 +175,43 @@
       renderPortfolio();
     }
 
+    // ==================== ОТРИСОВКА ОПЫТА РАБОТЫ ====================
+    function renderExperience() {
+      const container = document.getElementById("experienceList");
+      if (!container || !Array.isArray(EXPERIENCE)) return;
+
+      container.innerHTML = EXPERIENCE.map((item) => {
+        const badgeClass = item.isCurrent
+          ? "border-accent/40 text-accent bg-accent/10"
+          : "border-borderSubtle text-zinc-400 bg-surface";
+
+        return `
+          <div class="py-7 sm:py-8 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-start group">
+            <div class="lg:col-span-4 space-y-2">
+              <div class="font-mono text-xs text-zinc-400">${escapeHtml(item.period)}</div>
+              <div class="inline-flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full border text-[11px] font-medium ${badgeClass}">
+                  ${escapeHtml(item.category)}
+                </span>
+              </div>
+            </div>
+
+            <div class="lg:col-span-8 space-y-2.5">
+              <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+                <h3 class="text-lg sm:text-xl font-semibold text-white group-hover:text-accent transition-colors">
+                  ${escapeHtml(item.role)}
+                </h3>
+                <span class="text-sm font-medium text-zinc-400">— ${escapeHtml(item.company)}</span>
+              </div>
+              <p class="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-2xl">
+                ${escapeHtml(item.description)}
+              </p>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
     // ==================== ПАРСЕР ВИДЕОИСТОЧНИКОВ И МОДАЛЬНЫЙ ПЛЕЕР ====================
     const modal = document.getElementById("videoModal");
     const modalTitle = document.getElementById("modalTitle");
@@ -178,14 +219,6 @@
     const modalTags = document.getElementById("modalTags");
     const modalDescription = document.getElementById("modalDescription");
 
-    /**
-     * Универсальный парсер видеоисточника:
-     * - Извлекает src из полного HTML-кода <iframe src="...">
-     * - Преобразует обычную ссылку Кинескопа https://kinescope.io/VIDEO_ID в https://kinescope.io/embed/VIDEO_ID
-     * - Преобразует обычные ссылки YouTube (watch?v=... / youtu.be/...) в embed
-     * - Добавляет autoplay=1 при открытии в модальном окне
-     * - Определяет, не остался ли в URL плейсхолдер YOUR_ID
-     */
     function parseVideoSource(rawInput, videoType = "kinescope", autoplay = true) {
       if (!rawInput || typeof rawInput !== "string") {
         return { kind: "empty", url: "", isPlaceholder: false };
@@ -196,21 +229,17 @@
         return { kind: "empty", url: "", isPlaceholder: false };
       }
 
-      // 1. Если вставлен полный HTML-код <iframe>, достаём атрибут src
       const iframeSrcMatch = source.match(/<iframe[^>]+src=["']([^"']+)["']/i);
       if (iframeSrcMatch && iframeSrcMatch[1]) {
         source = iframeSrcMatch[1].trim();
       }
 
-      // Проверка на незаменённый плейсхолдер
       const isPlaceholder = /YOUR_(SHOWREEL_)?ID/i.test(source);
 
-      // 2. Прямой видеофайл (.mp4 / .webm / .ogg)
       if (videoType === "mp4" || source.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
         return { kind: "mp4", url: source, isPlaceholder };
       }
 
-      // 3. Кинескоп (kinescope.io/VIDEO_ID или kinescope.io/embed/VIDEO_ID)
       const kinescopeMatch = source.match(/^https?:\/\/(?:www\.)?kinescope\.io\/(?:embed\/)?([a-zA-Z0-9_-]+)(?:\/([a-zA-Z0-9_-]+))?(\?.*)?$/i);
       if (videoType === "kinescope" || kinescopeMatch) {
         let embedUrl = source;
@@ -226,7 +255,6 @@
         return { kind: "iframe", url: embedUrl, isPlaceholder };
       }
 
-      // 4. YouTube (обычная или короткая ссылка -> embed)
       const ytMatch = source.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{6,})/i);
       if (videoType === "youtube" || ytMatch) {
         let embedUrl = ytMatch ? `https://www.youtube.com/embed/${ytMatch[1]}` : source;
@@ -236,7 +264,6 @@
         return { kind: "iframe", url: embedUrl, isPlaceholder };
       }
 
-      // 5. Любой другой iframe/embed URL (VK Видео, Rutube, Vimeo и т.д.)
       let genericEmbedUrl = source;
       if (autoplay && !/[?&]autoplay=/i.test(genericEmbedUrl)) {
         genericEmbedUrl += (genericEmbedUrl.includes("?") ? "&" : "?") + "autoplay=1";
@@ -251,11 +278,11 @@
         return `
           <div class="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-canvas">
             <div class="w-12 h-12 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center mb-4 text-accent">
-              <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <p class="text-sm font-medium text-white mb-2">${title}</p>
+            <p class="text-sm font-medium text-white mb-2">${escapeHtml(title)}</p>
             <p class="text-xs text-zinc-400 max-w-md leading-relaxed">
-              Вставьте ссылку или код встраивания из <span class="text-white font-medium">Кинескопа</span> (например, <code class="text-accent font-mono">https://kinescope.io/embed/ID</code>) в поле <code class="text-zinc-200 font-mono">videoUrl</code> внутри <code class="text-zinc-200 font-mono">index.html</code>.
+              Укажите ссылку или код встраивания из <span class="text-white font-medium">Кинескопа</span> (например, <code class="text-accent font-mono">https://kinescope.io/embed/ID</code>) в поле <code class="text-zinc-200 font-mono">videoUrl</code> внутри <code class="text-zinc-200 font-mono">index.html</code>.
             </p>
           </div>
         `;
@@ -264,15 +291,15 @@
       if (parsed.kind === "mp4") {
         return `
           <video controls autoplay playsinline class="w-full h-full object-contain bg-black">
-            <source src="${parsed.url}" type="video/mp4" />
+            <source src="${escapeHtml(parsed.url)}" type="video/mp4" />
           </video>
         `;
       }
 
       return `
         <iframe
-          src="${parsed.url}"
-          title="${title}"
+          src="${escapeHtml(parsed.url)}"
+          title="${escapeHtml(title)}"
           class="w-full h-full border-0"
           frameborder="0"
           allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
@@ -282,12 +309,13 @@
     }
 
     function openShowreelModal() {
+      if (!modal || !modalTitle || !modalPlayerContainer || !modalDescription || !modalTags) return;
       const sr = SITE_CONFIG.showreel;
       modalTitle.textContent = sr.title;
       modalPlayerContainer.innerHTML = renderVideoContent(sr.videoUrl, sr.title, sr.videoType);
       modalDescription.textContent = sr.description;
-      modalTags.innerHTML = sr.tags
-        .map((t) => `<span class="px-2.5 py-1 rounded-full bg-canvas border border-borderSubtle text-xs text-zinc-300">${t}</span>`)
+      modalTags.innerHTML = (sr.tags || [])
+        .map((t) => `<span class="px-2.5 py-1 rounded-full bg-canvas border border-borderSubtle text-xs text-zinc-300">${escapeHtml(t)}</span>`)
         .join("");
 
       modal.classList.remove("hidden");
@@ -296,6 +324,7 @@
     }
 
     function openProjectModal(projectId) {
+      if (!modal || !modalTitle || !modalPlayerContainer || !modalDescription || !modalTags) return;
       const project = PROJECTS.find((p) => p.id === projectId);
       if (!project) return;
 
@@ -315,7 +344,7 @@
           const cls = idx === 0 && project.type === "Редизайн"
             ? "border-accent/40 text-accent bg-accent/10"
             : "border-borderSubtle text-zinc-300 bg-canvas";
-          return `<span class="px-2.5 py-1 rounded-full border text-xs ${cls}">${label}</span>`;
+          return `<span class="px-2.5 py-1 rounded-full border text-xs ${cls}">${escapeHtml(label)}</span>`;
         })
         .join("");
 
@@ -325,20 +354,23 @@
     }
 
     function closeVideoModal() {
+      if (!modal || !modalPlayerContainer) return;
       modal.classList.add("hidden");
       modal.classList.remove("flex");
       modalPlayerContainer.innerHTML = "";
       document.body.style.overflow = "";
     }
 
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        closeVideoModal();
-      }
-    });
+    if (modal) {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeVideoModal();
+        }
+      });
+    }
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+      if (e.key === "Escape" && modal && !modal.classList.contains("hidden")) {
         closeVideoModal();
       }
     });
@@ -363,6 +395,16 @@
 
     function copyEmail() {
       const email = SITE_CONFIG.email;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email)
+          .then(() => showToast(`Email скопирован: ${email}`))
+          .catch(() => fallbackCopy(email));
+      } else {
+        fallbackCopy(email);
+      }
+    }
+
+    function fallbackCopy(email) {
       const tempInput = document.createElement("textarea");
       tempInput.value = email;
       tempInput.style.position = "fixed";
@@ -379,7 +421,7 @@
     }
 
     function handlePdfDownload(event) {
-      // Показываем подсказку, если локальный файл ещё не добавлен пользователем
+      if (window.location.protocol === "file:") return;
       fetch(SITE_CONFIG.pdfPath, { method: "HEAD" })
         .then((res) => {
           if (!res.ok) {
@@ -387,12 +429,10 @@
             showToast("Положите файл портфолио по пути ./assets/Artem_Emelyanov_Portfolio.pdf");
           }
         })
-        .catch(() => {
-          // При открытии через file:// позволяем браузеру обработать стандартный download
-        });
+        .catch(() => {});
     }
 
-    // ==================== ФОНОВОЕ ВИДЕО В HERO ====================
+    // ==================== ФОНОВОЕ ВИДЕО И ЗВУКОВАЯ ВОЛНА В HERO ====================
     function initHeroBackground() {
       const container = document.getElementById("heroBgMedia");
       const waveCanvas = document.getElementById("heroWaveCanvas");
@@ -401,9 +441,6 @@
 
       const parsed = parseVideoSource(rawBgUrl, "auto", true);
       if (parsed.kind === "empty" || parsed.isPlaceholder) return;
-
-      // Скрываем фоновую волну, так как загружается видео
-      if (waveCanvas) waveCanvas.style.display = "none";
 
       if (parsed.kind === "mp4") {
         const video = document.createElement("video");
@@ -421,12 +458,19 @@
         source.type = "video/mp4";
         video.appendChild(source);
 
+        // При ошибке загрузки локального/внешнего mp4 оставляем фоновую волну без пустого места
+        video.addEventListener("error", () => {
+          video.remove();
+          if (waveCanvas) waveCanvas.style.display = "block";
+        });
+
+        if (waveCanvas) waveCanvas.style.display = "none";
         container.prepend(video);
         video.play().catch(() => {});
         return;
       }
 
-      // Если указана ссылка на Кинескоп или другой embed-плеер — добавляем параметры фонового лупа
+      if (waveCanvas) waveCanvas.style.display = "none";
       let bgEmbedUrl = parsed.url;
       const extraParams = ["muted=1", "loop=1", "controls=0", "background=1"];
       extraParams.forEach((param) => {
@@ -440,7 +484,7 @@
       wrapper.className = "absolute inset-0 overflow-hidden pointer-events-none opacity-80";
       wrapper.innerHTML = `
         <iframe
-          src="${bgEmbedUrl}"
+          src="${escapeHtml(bgEmbedUrl)}"
           title="Showreel background"
           class="w-[140%] h-[140%] -ml-[20%] -mt-[12%] object-cover border-0 pointer-events-none"
           frameborder="0"
@@ -450,11 +494,12 @@
       container.prepend(wrapper);
     }
 
-    // ==================== МИНИМАЛИСТИЧНАЯ ЗВУКОВАЯ ВОЛНА В HERO ====================
     function initHeroWave() {
       const canvas = document.getElementById("heroWaveCanvas");
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
       let width = 0;
       let height = 0;
       let phase = 0;
@@ -463,8 +508,8 @@
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         width = canvas.clientWidth;
         height = canvas.clientHeight;
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
+        canvas.width = Math.max(1, Math.round(width * dpr));
+        canvas.height = Math.max(1, Math.round(height * dpr));
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
 
@@ -472,7 +517,6 @@
         ctx.clearRect(0, 0, width, height);
         const centerY = height * 0.54;
 
-        // Две тонкие плавные линии звуковой волны без сетки
         const waves = [
           { amp: 34, freq: 0.0045, speed: 0.014, color: "rgba(255, 77, 36, 0.24)", lineWidth: 1.5 },
           { amp: 20, freq: 0.0075, speed: -0.01, color: "rgba(255, 255, 255, 0.08)", lineWidth: 1 }
@@ -505,11 +549,13 @@
     }
 
     window.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("emailBtnText").textContent = SITE_CONFIG.email;
+      const emailTextEl = document.getElementById("emailBtnText");
+      if (emailTextEl) emailTextEl.textContent = SITE_CONFIG.email;
       buildGenreFilterChips();
       bindFilterChipEvents();
       syncFilterChipsUI();
       renderPortfolio();
+      renderExperience();
       initHeroBackground();
       initHeroWave();
     });

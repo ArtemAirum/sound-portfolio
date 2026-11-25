@@ -1,33 +1,76 @@
- /**
-     * ============================================================================
-     * ИНСТРУКЦИЯ ПО НАПОЛНЕНИЮ ВИДЕО С КИНЕСКОПА (KINESCOPE.IO) И ДРУГИХ ПЛОЩАДОК
-     * ============================================================================
-     * 1. В кабинете Кинескопа откройте нужное видео -> нажмите «Поделиться» / «Встраивание».
-     * 2. Скопируйте либо прямую ссылку (например, https://kinescope.io/201234567),
-     *    либо embed-ссылку (https://kinescope.io/embed/201234567),
-     *    либо весь HTML-код <iframe src="..."> целиком — парсер сам извлечёт нужный URL.
-     * 3. Вставьте полученную строку в поле `videoUrl` внутри `SHOWREEL_CONFIG` или в нужный
-     *    объект массива `PROJECTS`.
-     * 4. Также поддерживаются прямые локальные/облачные файлы `.mp4` и embed-ссылки VK / Rutube / YouTube.
-     * ============================================================================
-     */
-
-    const SHOWREEL_CONFIG = {
+const SHOWREEL_CONFIG = {
       title: "Game Sound Design Showreel — Артём Емельянов",
-      videoType: "kinescope", // 'kinescope' | 'embed' | 'youtube' | 'mp4'
+      videoType: "kinescope",
       videoUrl: "https://kinescope.io/embed/cRmbtDYi3YESCatHBxpVHR",
-      bgVideoUrl: "./assets/showreel-loop.mp4", // <-- Ссылка на фоновый луп без звука: "./assets/showreel-loop.mp4" или "https://kinescope.io/embed/YOUR_BG_LOOP_ID"
-      bgPosterUrl: "", // <-- Опционально: статичный кадр-обложка до загрузки видео "./assets/hero-poster.jpg"
-      description: "Подборка работ: интерактивная интеграция в Wwise, FMOD и Unity, синтез оружия, транспортная физика и редизайн игровых сцен.",
-      tags: ["Showreel", "Wwise", "FMOD", "Unity", "REAPER"]
+      bgVideoUrl: "./assets/showreel-loop.mp4",
+      bgPosterUrl: "",
+      description: "Подборка работ: редизайн синематика, игровых миров, интерактивная интеграция в Wwise, FMOD и Unity.",
+      tags: []
     };
 
     const SITE_CONFIG = {
-      email: "artem.sound@example.com", // Замените на ваш актуальный email
-      pdfPath: "./assets/Artem_Emelyanov_Portfolio.pdf", // Путь к PDF-файлу портфолио
+      email: "emeart.sd@gmail.com",
+      pdfPath: "./assets/Artem_Emelyanov_Portfolio.pdf",
       showreel: SHOWREEL_CONFIG
     };
 
+    /**
+     * Опыт работы на основе резюме.
+     */
+    const EXPERIENCE = [
+      {
+        period: "Сентябрь 2026 — настоящее время",
+        role: "Sound Designer / Technical Sound Designer",
+        company: "Resound Quake 1",
+        category: "Game Audio",
+        isCurrent: true,
+        description: "Создание и интеграция озвучки всех состояний монстров, выстрелов и подбора оружия, настройка интерактивной логики и работа с FMOD."
+      },
+      {
+        period: "Август 2025 — настоящее время",
+        role: "Drum and Bass музыкант",
+        company: "Emeart",
+        category: "Music Production",
+        isCurrent: true,
+        description: "Написание Drum & Bass и Neurofunk треков. Релизы на лейблах Paperfunk, High Resistance; готовится релиз на немецком лейбле Hanzom."
+      },
+      {
+        period: "Сентябрь 2024 — Апрель 2026",
+        role: "Арт-директор",
+        company: "Дизайн-студия Воздух / VZDH",
+        category: "Art Direction",
+        isCurrent: false,
+        description: "Управление дизайн-отделом, контроль пайплайнов, работа с дедлайнами, продуктовое мышление, презентация работ и тесная коммуникация с клиентами и разработчиками."
+      },
+      {
+        period: "Февраль 2019 — Сентябрь 2024",
+        role: "Старший веб-дизайнер (Senior)",
+        company: "Дизайн-студия Воздух / VZDH",
+        category: "Design & Leadership",
+        isCurrent: false,
+        description: "Ведение проектов от старта до релиза, распределение задач и проверка работы middle/junior-дизайнеров, презентация арт-директору и авторский надзор при передаче в разработку."
+      },
+      {
+        period: "Февраль 2017 — Май 2020",
+        role: "Trance & Progressive музыкант",
+        company: "Airum",
+        category: "Music Production",
+        isCurrent: false,
+        description: "Написание Trance и Progressive музыки. Официальные релизы на международных лейблах Transmission, 2rock и RazNitzan (Нидерланды)."
+      },
+      {
+        period: "Апрель 2016 — Февраль 2019",
+        role: "Веб-дизайнер (Middle) / Младший дизайнер (Junior)",
+        company: "Дизайн-студия Воздух / Интернет-агентство Emay",
+        category: "Digital Design",
+        isCurrent: false,
+        description: "Проектирование интерфейсов, дизайн-систем и визуальных концепций для цифровых продуктов (Emay: сентябрь 2013 — сентябрь 2015; ВЗДХ: с апреля 2016)."
+      }
+    ];
+
+    /**
+     * Каталог видео-кейсов с тегами по типу работы, жанру, аудиодвижку и игровому движку.
+     */
     const PROJECTS = [
       {
         id: "xenolocus-vr",
@@ -39,8 +82,8 @@
         gameEngine: "VR / Video",
         waveSeed: 3.9,
         videoType: "kinescope",
-        videoUrl: "https://kinescope.io/embed/YOUR_ID_1", // <-- Замените YOUR_ID_1 на ID ролика в Кинескопе
-        posterUrl: "", // Опционально: путь к картинке-обложке ./assets/posters/xenolocus.jpg
+        videoUrl: "https://kinescope.io/embed/YOUR_ID_1",
+        posterUrl: "",
         summary: "Линейный атмосферный саунд-дизайн, напряжённый эмбиент и звуки окружения для научно-фантастического хоррор VR-шутера.",
         details: "Линейный атмосферный саунд-дизайн, напряжённый эмбиент и звуки окружения для научно-фантастического хоррор VR-шутера. Особое внимание уделено тактильности интерактивных объектов, пространственной глубине станции и саспенс-текстурам."
       },
@@ -54,7 +97,7 @@
         gameEngine: "Unity",
         waveSeed: 1.2,
         videoType: "kinescope",
-        videoUrl: "https://kinescope.io/embed/YOUR_ID_2", // <-- Замените YOUR_ID_2 на ID ролика в Кинескопе
+        videoUrl: "https://kinescope.io/embed/YOUR_ID_2",
         posterUrl: "",
         summary: "Интерактивная звуковая система города: пространственные порталы, динамическая смена окружения, шаги по разным поверхностям и генеративный саундскейп.",
         details: "Интерактивная звуковая система города: пространственные порталы (Spatial Audio Rooms & Portals), динамическая смена окружения, система шагов по разным поверхностям с привязкой к физике и генеративный саундскейп в Wwise + Unity."
@@ -69,7 +112,7 @@
         gameEngine: "QuakeSpasm",
         waveSeed: 5.3,
         videoType: "kinescope",
-        videoUrl: "https://kinescope.io/embed/YOUR_ID_3", // <-- Замените YOUR_ID_3 на ID ролика в Кинескопе
+        videoUrl: "https://kinescope.io/embed/YOUR_ID_3",
         posterUrl: "",
         summary: "Переосмысление звукового дизайна классического шутера: новое звучание оружия, монстров, окружения и интерактивная интеграция через FMOD.",
         details: "Переосмысление звукового дизайна классического шутера: новое звучание оружия, монстров, окружения и интерактивная интеграция через FMOD Studio в порт QuakeSpasm с динамической реверберацией и вариативностью выстрелов."
@@ -84,7 +127,7 @@
         gameEngine: "Video",
         waveSeed: 2.7,
         videoType: "kinescope",
-        videoUrl: "https://kinescope.io/embed/YOUR_ID_4", // <-- Замените YOUR_ID_4 на ID ролика в Кинескопе
+        videoUrl: "https://kinescope.io/embed/YOUR_ID_4",
         posterUrl: "",
         summary: "Детальный линейный редизайн боевой сцены: синтез плазменного оружия, металлические деформации, фоли костюма и саспенс-текстуры.",
         details: "Детальный линейный редизайн боевой сцены: синтез плазменного оружия, металлические деформации обшивки, тяжёлое фоли инженерного костюма и многослойные саспенс-текстуры."
@@ -99,7 +142,7 @@
         gameEngine: "Video",
         waveSeed: 4.5,
         videoType: "kinescope",
-        videoUrl: "https://kinescope.io/embed/YOUR_ID_5", // <-- Замените YOUR_ID_5 на ID ролика в Кинескопе
+        videoUrl: "https://kinescope.io/embed/YOUR_ID_5",
         posterUrl: "",
         summary: "Редизайн звуков юнитов, техники, взрывов и тактического интерфейса в эстетике научной фантастики.",
         details: "Редизайн звуков юнитов, тяжёлой техники, взрывов и тактического интерфейса в эстетике научной фантастики: сервоприводы, радиофильтрация реплик и читаемые UI-сигналы."
@@ -114,7 +157,7 @@
         gameEngine: "Unity",
         waveSeed: 6.1,
         videoType: "kinescope",
-        videoUrl: "https://kinescope.io/embed/YOUR_ID_6", // <-- Замените YOUR_ID_6 на ID ролика в Кинескопе
+        videoUrl: "https://kinescope.io/embed/YOUR_ID_6",
         posterUrl: "",
         summary: "Техническая демонстрация: процедурное переключение передач транспорта и многослойная система выстрелов с учётом дистанции и реверберации.",
         details: "Техническая демонстрация в Wwise + Unity: процедурное переключение передач и оборотов двигателя (RPM) транспорта, а также многослойная система выстрелов с учётом дистанции, хвостов отражений и реверберации окружения."
