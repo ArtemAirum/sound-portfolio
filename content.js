@@ -15,7 +15,7 @@
     const SHOWREEL_CONFIG = {
       title: "Game Sound Design Showreel — Артём Емельянов",
       videoType: "kinescope", // 'kinescope' | 'embed' | 'youtube' | 'mp4'
-      videoUrl: "https://kinescope.io/embed/YOUR_SHOWREEL_ID", // <-- Ссылка для модального окна со звуком
+      videoUrl: "https://kinescope.io/embed/cRmbtDYi3YESCatHBxpVHR",
       bgVideoUrl: "./assets/showreel-loop.mp4", // <-- Ссылка на фоновый луп без звука: "./assets/showreel-loop.mp4" или "https://kinescope.io/embed/YOUR_BG_LOOP_ID"
       bgPosterUrl: "", // <-- Опционально: статичный кадр-обложка до загрузки видео "./assets/hero-poster.jpg"
       description: "Подборка работ: интерактивная интеграция в Wwise, FMOD и Unity, синтез оружия, транспортная физика и редизайн игровых сцен.",
