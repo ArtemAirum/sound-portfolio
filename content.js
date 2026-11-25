@@ -67,20 +67,21 @@ const SHOWREEL_CONFIG = {
 
     const PROJECTS = [
       {
-        id: "xenolocus-vr",
-        title: "Xenolocus — Sci-Fi Horror VR Atmosphere",
+        id: "shooter-game-prototype",
+        title: "Shooter Game Prototype",
         duration: "02:05",
         type: "Оригинал",
-        genre: "Sci-Fi Horror",
-        audioEngine: "Linear (REAPER)",
-        gameEngine: "VR / Video",
+        genre: "Shooter",
+        audioEngine: "Wwise",
+        gameEngine: "Unity",
         waveSeed: 3.9,
         videoType: "kinescope",
-        videoUrl: "https://kinescope.io/embed/YOUR_ID_1",
-        posterUrl: "",
-        summary: "Линейный атмосферный саунд-дизайн, напряжённый эмбиент и звуки окружения для научно-фантастического хоррор VR-шутера.",
-        details: "Линейный атмосферный саунд-дизайн, напряжённый эмбиент и звуки окружения для научно-фантастического хоррор VR-шутера. Особое внимание уделено тактильности интерактивных объектов, пространственной глубине станции и саспенс-текстурам."
-      },
+        videoUrl: "https://kinescope.io/embed/iUv2FX9RZc3pWEdXf46daZ",
+        posterUrl: "assets/posters/shooter-game-prototype.jpg",
+        summary: "Курсовая работа с XSSR Academy по интерактивному звуку и ауидодвижкам.",
+        details: "Курсовая работа с XSSR Academy по интерактивному звуку и ауидодвижкам. Проработан ряд интерактивных звуковых систем: система шагов по разным поверхностям и лужам, локомоция, выстрелы и фоли оружия, войсоверы пс и нпс, двигатель автомобиля и сменяющийся эмбиент." 
+      }
+      /*
       {
         id: "cyberpunk-street",
         title: "Cyberpunk Street — Interactive Audio Prototype",
@@ -155,5 +156,5 @@ const SHOWREEL_CONFIG = {
         posterUrl: "",
         summary: "Техническая демонстрация: процедурное переключение передач транспорта и многослойная система выстрелов с учётом дистанции и реверберации.",
         details: "Техническая демонстрация в Wwise + Unity: процедурное переключение передач и оборотов двигателя (RPM) транспорта, а также многослойная система выстрелов с учётом дистанции, хвостов отражений и реверберации окружения."
-      }
+      }*/
     ];
