@@ -82,6 +82,21 @@ const SHOWREEL_CONFIG = {
         details: "Курсовая работа с XSSR Academy по интерактивному звуку и аудиодвижкам. Проработан ряд интерактивных звуковых систем: система шагов по разным поверхностям и лужам, локомоция, выстрелы и фоли оружия, войсоверы пс и нпс, двигатель автомобиля и сменяющийся эмбиент." 
       },
       {
+        id: "horror-game-prototype",
+        title: "Horror Game Prototype",
+        duration: "04:24",
+        type: "Оригинал",
+        genre: "Horror",
+        audioEngine: "Wwise",
+        gameEngine: "Unity",
+        waveSeed: 3.9,
+        videoType: "kinescope",
+        videoUrl: "https://kinescope.io/embed/gss2S2XM1Bg3neh6LunRGK",
+        posterUrl: "assets/posters/horror-game-prototype.jpg",
+        summary: "Учебная работа с XSSR Academy по интерактивному звуку в Wwise",
+        details: "Учебная работа с XSSR Academy по интерактивному звуку и аудиодвижкам. В работе проработана система комнат и порталов по всему дому, система шагов по разным поверхностям, система дыхания, войсоверы пс и нпс, система дронов и сменяющийся эмбиент с дождем." 
+      },
+      {
         id: "shooter-cyberpunk-game-prototype",
         title: "Cyberpunk Game Prototype",
         duration: "02:47",
