@@ -4,7 +4,7 @@ const SHOWREEL_CONFIG = {
       videoUrl: "https://kinescope.io/embed/cRmbtDYi3YESCatHBxpVHR",
       bgVideoUrl: "./assets/showreel-loop.mp4",
       bgPosterUrl: "",
-      description: "Подборка работ: редизайн синематика, игровых миров, интерактивная интеграция в Wwise, FMOD и Unity.",
+      description: "Подборка работ: редизайн синематика, геймплея, интерактивная интеграция в Wwise, FMOD и Unity.",
       tags: []
     };
 
@@ -14,17 +14,14 @@ const SHOWREEL_CONFIG = {
       showreel: SHOWREEL_CONFIG
     };
 
-    /**
-     * Опыт работы на основе резюме.
-     */
     const EXPERIENCE = [
       {
         period: "Сентябрь 2026 — настоящее время",
-        role: "Sound Designer / Technical Sound Designer",
+        role: "Sound Designer",
         company: "Resound Quake 1",
         category: "Game Audio",
         isCurrent: true,
-        description: "Создание и интеграция озвучки всех состояний монстров, выстрелов и подбора оружия, настройка интерактивной логики и работа с FMOD."
+        description: "Создание и интеграция озвучки всех состояний монстров, выстрелов и подбора оружия"
       },
       {
         period: "Август 2025 — настоящее время",
@@ -68,9 +65,6 @@ const SHOWREEL_CONFIG = {
       }
     ];
 
-    /**
-     * Каталог видео-кейсов с тегами по типу работы, жанру, аудиодвижку и игровому движку.
-     */
     const PROJECTS = [
       {
         id: "xenolocus-vr",
