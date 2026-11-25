@@ -78,9 +78,24 @@ const SHOWREEL_CONFIG = {
         videoType: "kinescope",
         videoUrl: "https://kinescope.io/embed/iUv2FX9RZc3pWEdXf46daZ",
         posterUrl: "assets/posters/shooter-game-prototype.jpg",
-        summary: "Курсовая работа с XSSR Academy по интерактивному звуку и аудиодвижкам.",
+        summary: "Курсовая работа с XSSR Academy по интерактивному звуку в Wwise.",
         details: "Курсовая работа с XSSR Academy по интерактивному звуку и аудиодвижкам. Проработан ряд интерактивных звуковых систем: система шагов по разным поверхностям и лужам, локомоция, выстрелы и фоли оружия, войсоверы пс и нпс, двигатель автомобиля и сменяющийся эмбиент." 
-      }
+      },
+      {
+        id: "shooter-cyberpunk-game-prototype",
+        title: "Cyberpunk Game Prototype",
+        duration: "02:47",
+        type: "Оригинал",
+        genre: "Shooter",
+        audioEngine: "FMOD",
+        gameEngine: "Unity",
+        waveSeed: 3.9,
+        videoType: "kinescope",
+        videoUrl: "https://kinescope.io/embed/0dUdSb7CEVCSEe1xAvFKrY",
+        posterUrl: "assets/posters/cyberpunk-game-prototype.jpg",
+        summary: "Учебная работа с XSSR Academy по интерактивному звуку в FMOD",
+        details: "Учебная работа с XSSR Academy по интерактивному звуку и аудиодвижкам. В работе проработана самописная система дифракции на C#, система шагов по разным поверхностям и разной интенсивности, выстрелы и фоли оружия, войсоверы пс и нпс, интерактивная музыкая и сменяющийся эмбиент." 
+      },
       /*
       {
         id: "cyberpunk-street",
