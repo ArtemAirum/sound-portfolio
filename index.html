@@ -99,7 +99,7 @@
         </h1>
 
         <p class="text-base sm:text-lg text-zinc-300 leading-relaxed max-w-xl mb-10 font-normal">
-          Проектирую линейный саунд-дизайн и интерактивные аудиосистемы: от синтеза и создания саунда в REAPER до интеграции в Wwise, FMOD и Unity.
+          Проектирую линейный саунд-дизайн и&nbsp;интерактивные аудиосистемы: от&nbsp;синтеза и&nbsp;создания саунда в&nbsp;REAPER до&nbsp;интеграции в&nbsp;Wwise, FMOD и&nbsp;Unity.
         </p>
 
         <!-- Кнопка запуска шоурила в модальном окне + якорь к проектам -->
@@ -152,12 +152,12 @@
               <span class="text-xs font-medium uppercase tracking-wider text-zinc-400">Обо мне</span>
             </div>
             <h2 class="text-3xl sm:text-4xl font-semibold tracking-[-0.02em] text-white leading-tight">
-              Артём Емельянов — саунд-дизайнер с 10 летним опытом в визуальном продакшене и электронной музыке.
+              Артём Емельянов&nbsp;— саунд-дизайнер с&nbsp;10&nbsp;летним опытом в&nbsp;визуальном продакшене и&nbsp;электронной музыке.
             </h2>
           </div>
 
           <p class="text-zinc-300 text-base sm:text-lg leading-relaxed">
-            Мой бэкграунд визуального дизайнера помогает мне считывать художественную атмосферу кадра и переводить её в правильный и сочный звук, который усиливает геймплей и сохраняет чистоту микса. Веду полный цикл работы над игровым аудио: от записи и синтеза до настройки логики, проектирования систем, пространственной акустики и интеграции в движок.
+            Мой бэкграунд визуального дизайнера помогает мне считывать художественную атмосферу кадра и&nbsp;переводить её&nbsp;в&nbsp;правильный и&nbsp;сочный звук, который усиливает геймплей и&nbsp;сохраняет чистоту микса. Веду полный цикл работы над игровым аудио: от&nbsp;записи и&nbsp;синтеза до&nbsp;настройки логики, проектирования систем, пространственной акустики и&nbsp;интеграции в&nbsp;движок.
           </p>
 
           <div class="flex flex-wrap gap-2 pt-1">
@@ -222,16 +222,27 @@
         <div class="flex flex-wrap items-center justify-between gap-3 border-b border-borderSubtle pb-3.5">
           <div class="flex items-center gap-2 text-xs text-zinc-400">
             <span class="font-medium text-zinc-200">Фильтр проектов</span>
-            <span id="projectCountBadge" class="px-2 py-0.5 rounded-full bg-canvas text-zinc-300 border border-borderSubtle font-mono text-[11px]">6</span>
+            <span id="projectCountBadge" class="px-2 py-0.5 rounded-full bg-canvas text-zinc-300 border border-borderSubtle font-mono text-[11px]">4</span>
           </div>
-          <button
-            type="button"
-            id="resetFiltersBtn"
-            onclick="resetFilters()"
-            class="hidden text-xs text-accent hover:text-accentHover transition-colors cursor-pointer"
-          >
-            Сбросить фильтры
-          </button>
+          <div class="flex items-center gap-4">
+            <button
+              type="button"
+              id="copyFilterLinkBtn"
+              onclick="copyFilteredUrl()"
+              class="hidden inline-flex items-center gap-1.5 text-xs text-zinc-300 hover:text-white transition-colors cursor-pointer"
+            >
+              <span>Скопировать ссылку с фильтром</span>
+              <span class="text-zinc-500">↗</span>
+            </button>
+            <button
+              type="button"
+              id="resetFiltersBtn"
+              onclick="resetFilters()"
+              class="hidden text-xs text-accent hover:text-accentHover transition-colors cursor-pointer"
+            >
+              Сбросить фильтры
+            </button>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -318,7 +329,7 @@
             <span class="text-xs font-medium uppercase tracking-wider text-zinc-400">Контакты</span>
           </div>
           <h2 class="text-3xl sm:text-4xl font-semibold tracking-[-0.02em] text-white leading-tight">
-            Открыт к новым проектам, тестовым заданиям и сотрудничеству.
+            Открыт к&nbsp;новым проектам, тестовым заданиям и&nbsp;сотрудничеству.
           </h2>
         </div>
 
