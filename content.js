@@ -140,6 +140,21 @@ const SHOWREEL_CONFIG = {
         posterUrl: "assets/posters/quake-1-resound-monsters.jpg",
         summary: "Редизайн оригинального звучания мобов из культовой игры Quake 1 и их интеграция.",
         details: "Редизайн оригинального звучания мобов из культовой игры Quake 1 и их интеграция." 
+      },
+      {
+        id: "redesign-menu",
+        title: "Interface Redesign",
+        duration: "00:39",
+        type: "Редизайн",
+        genre: "Other",
+        audioEngine: "Reaper",
+        gameEngine: "Video",
+        waveSeed: 3.9,
+        videoType: "kinescope",
+        videoUrl: "https://kinescope.io/embed/bprD9oDwaxVRpp9MESczep",
+        posterUrl: "",
+        summary: "Редизайн меню из God of War и Crash Racing Team.",
+        details: "Редизайн меню из God of War и Crash Racing Team." 
       }
       
     ];
