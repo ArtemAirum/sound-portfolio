@@ -123,8 +123,23 @@ const SHOWREEL_CONFIG = {
         videoType: "kinescope",
         videoUrl: "https://kinescope.io/embed/dCwkiJ6nY3qyptKRWcicvw",
         posterUrl: "assets/posters/quake-1-resound-weapon.jpg",
-        summary: "Редизайн и интеграция оригинальных выстрелов из культовой игры Quake 1.",
-        details: "Редизайн и интеграция оригинальных выстрелов из культовой игры Quake 1." 
+        summary: "Редизайн оригинального оружия из культовой игры Quake 1 и его интеграция.",
+        details: "Редизайн оригинального оружия из культовой игры Quake 1 и его интеграция." 
+      },
+      {
+        id: "quake-1-resound-monsters",
+        title: "Quake 1 Resound — Monsters",
+        duration: "05:29",
+        type: "Редизайн",
+        genre: "Shooter",
+        audioEngine: "FMOD",
+        gameEngine: "QuakeSpasm",
+        waveSeed: 3.9,
+        videoType: "kinescope",
+        videoUrl: "https://kinescope.io/embed/niikmMCeMN9z8ziVA7DAYW",
+        posterUrl: "assets/posters/quake-1-resound-monsters.jpg",
+        summary: "Редизайн оригинального звучания мобов из культовой игры Quake 1 и их интеграция.",
+        details: "Редизайн оригинального звучания мобов из культовой игры Quake 1 и их интеграция." 
       }
       
     ];
