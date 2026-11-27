@@ -155,6 +155,22 @@ const SHOWREEL_CONFIG = {
         posterUrl: "",
         summary: "Редизайн меню из God of War и Crash Racing Team.",
         details: "Редизайн меню из God of War и Crash Racing Team." 
+      },
+      {
+        id: "redesign-see",
+        title: "Redesign Serial See",
+        duration: "02:34",
+        type: "Редизайн",
+        genre: "Other",
+        audioEngine: "Reaper",
+        gameEngine: "Video",
+        waveSeed: 3.9,
+        videoType: "kinescope",
+        videoUrl: "https://kinescope.io/embed/nrLPtw5w7EEVhffVhy1mUA",
+        posterUrl: "assets/posters/serial-see.jpg",
+        summary: "Учебная работа с курса XSSR Academy по редизайну эпизода из сериала Видеть.",
+        details: "Учебная работа с курса XSSR Academy по редизайну эпизода из сериала Видеть." 
       }
+
       
     ];
