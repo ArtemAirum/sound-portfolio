@@ -21,7 +21,7 @@ const SHOWREEL_CONFIG = {
         company: "Resound Quake 1",
         category: "Game Audio",
         isCurrent: true,
-        description: "Создание и интеграция озвучки всех состояний монстров, выстрелов и подбора оружия"
+        description: "Создание и интеграция всех состояний монстров, выстрелов и подбора оружия"
       },
       {
         period: "Август 2025 — настоящее время",
@@ -29,7 +29,7 @@ const SHOWREEL_CONFIG = {
         company: "Emeart",
         category: "Music Production",
         isCurrent: true,
-        description: "Написание Drum & Bass и Neurofunk треков. Релизы на лейблах Paperfunk, High Resistance; готовится релиз на немецком лейбле Hanzom."
+        description: "Написание Drum & Bass и Neurofunk. Релизы на лейблах Paperfunk, Deepnas, High Resistance; готовится релиз на немецком лейбле Hanzom."
       },
       {
         period: "Сентябрь 2024 — Апрель 2026",
@@ -37,7 +37,7 @@ const SHOWREEL_CONFIG = {
         company: "Дизайн-студия Воздух / VZDH",
         category: "Art Direction",
         isCurrent: false,
-        description: "Управление дизайн-отделом, контроль пайплайнов, работа с дедлайнами, продуктовое мышление, презентация работ и тесная коммуникация с клиентами и разработчиками."
+        description: "Управление дизайн-командой, работа с дедлайнами, продуктовое мышление, презентация работ и тесная коммуникация с клиентами и разработчиками."
       },
       {
         period: "Февраль 2019 — Сентябрь 2024",
@@ -45,7 +45,7 @@ const SHOWREEL_CONFIG = {
         company: "Дизайн-студия Воздух / VZDH",
         category: "Design & Leadership",
         isCurrent: false,
-        description: "Ведение проектов от старта до релиза, распределение задач и проверка работы middle/junior-дизайнеров, презентация арт-директору и авторский надзор при передаче в разработку."
+        description: "Ведение проектов от начала до конца, распределение задач и проверка работы middle/junior-дизайнеров, презентация арт-директору и авторский надзор при передаче в разработку."
       },
       {
         period: "Февраль 2017 — Май 2020",
@@ -53,15 +53,23 @@ const SHOWREEL_CONFIG = {
         company: "Airum",
         category: "Music Production",
         isCurrent: false,
-        description: "Написание Trance и Progressive музыки. Официальные релизы на международных лейблах Transmission, 2rock и RazNitzan (Нидерланды)."
+        description: "Написание Trance и Progressive. Релизы на лейблах Tranсemission (Radio Record), 2Rock и RazNitzan (Нидерланды)."
       },
       {
         period: "Апрель 2016 — Февраль 2019",
-        role: "Веб-дизайнер (Middle) / Младший дизайнер (Junior)",
+        role: "Веб-дизайнер (Middle)",
         company: "Дизайн-студия Воздух / Интернет-агентство Emay",
         category: "Digital Design",
         isCurrent: false,
-        description: "Проектирование интерфейсов, дизайн-систем и визуальных концепций для цифровых продуктов (Emay: сентябрь 2013 — сентябрь 2015; ВЗДХ: с апреля 2016)."
+        description: "Проектирование интерфейсов, дизайн-систем и визуальных концепций для цифровых продуктов."
+      },
+      {
+        period: "Сентябрь 2013 — Сентябрь 2015",
+        role: "Младший дизайнер (Junior)",
+        company: "Интернет-агентство Emay",
+        category: "Digital Design",
+        isCurrent: false,
+        description: "Работа с рутинными дизайнерскими задачами."
       }
     ];
 
