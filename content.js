@@ -150,6 +150,21 @@ const SHOWREEL_CONFIG = {
         details: "Редизайн оригинального звучания мобов из культовой игры Quake 1 и их интеграция." 
       },
       {
+        id: "xenolocus-line-video",
+        title: "Xenolocus",
+        duration: "01:03",
+        type: "Оригинал",
+        genre: "VR Horror",
+        audioEngine: "Reaper",
+        gameEngine: "Video",
+        waveSeed: 3.9,
+        videoType: "kinescope",
+        videoUrl: "https://kinescope.io/embed/5nVMBXnuqeJ8eo4wAPa7ty",
+        posterUrl: "assets/posters/xenolocus.jpg",
+        summary: "Линейная озвучка геймплея, для понимания атмосферы игры.",
+        details: "Линейная озвучка геймплея, для понимания атмосферы игры. Сейчас занимаемся разработкой ассетов и аудиосистем в Wwise." 
+      },
+      {
         id: "redesign-menu",
         title: "Interface Redesign",
         duration: "00:39",
